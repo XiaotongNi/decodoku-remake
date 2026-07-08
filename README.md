@@ -1,6 +1,8 @@
-# Z_n Anyon Puzzle
+# decodoku-remake
 
-A browser puzzle game inspired by Decodoku-style surface-code cleanup. The board stores plaquette charges in `Z_n`; every `t` turns, random edge errors create opposite neighboring charges, and the player slides charges to survive. The game ends when historically related active anyons touch opposite boundaries.
+A game related to the decoding task of topological quantum codes. It is a reimplementation based on the same game from Dr James Wootton, where players clean up anyons on a lattice before error chains connect opposite boundaries.
+
+This remake also focuses on making the game easy to play from scripts. Alongside the browser interface, it exposes a local JSON API and example Python players so decoding strategies can inspect the board state, submit moves, and be tested repeatably.
 
 ## Rules
 
