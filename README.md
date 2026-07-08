@@ -74,7 +74,7 @@ npm run dev
 python3 examples/baseline_strategy.py --seed baseline
 ```
 
-The baseline scores every legal one-step move. It strongly prefers immediate annihilation with a complementary neighboring charge, otherwise moves charges toward the nearest visible complement, avoids merging non-complementary visible charges, and nudges boundary charges inward. Because the API hides historical relation groups, this is a heuristic survival baseline rather than an optimal decoder.
+The baseline scores every legal one-step move. It strongly prefers immediate annihilation with a complementary neighboring charge, otherwise moves charges toward the nearest visible complement, avoids merging non-complementary visible charges, and nudges boundary charges inward.
 
 To watch Python-driven moves in the browser, open the app with API watch mode enabled:
 
