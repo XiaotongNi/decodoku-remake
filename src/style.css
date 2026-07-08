@@ -1,0 +1,286 @@
+:root {
+  color: #151515;
+  background: #f5f7f7;
+  font-family:
+    ui-rounded,
+    "Avenir Next",
+    "Trebuchet MS",
+    system-ui,
+    sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(241, 131, 164, 0.08) 25%, transparent 25%) 0 0 / 96px 96px,
+    linear-gradient(225deg, rgba(37, 182, 197, 0.07) 25%, transparent 25%) 0 0 / 96px 96px,
+    #f7f8f8;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.shell {
+  width: min(980px, 100%);
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.topbar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  align-items: end;
+  margin-bottom: 12px;
+}
+
+.metric {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 16px;
+  min-height: 48px;
+  font-size: clamp(1.1rem, 2.5vw, 2.2rem);
+  font-weight: 750;
+}
+
+.metric-label {
+  color: #090909;
+}
+
+.metric strong {
+  min-width: 3ch;
+  text-align: right;
+}
+
+.game-panel {
+  position: relative;
+  width: 100%;
+  min-height: 520px;
+  border: 2px solid rgba(117, 221, 232, 0.45);
+  background: rgba(255, 255, 255, 0.74);
+  overflow: hidden;
+}
+
+.board {
+  display: block;
+  width: 100%;
+  height: min(70vh, 720px);
+  min-height: 500px;
+  touch-action: manipulation;
+}
+
+.cell {
+  cursor: pointer;
+  outline: none;
+}
+
+.cell polygon {
+  fill: rgba(255, 255, 255, 0.28);
+  stroke: rgba(103, 213, 226, 0.72);
+  stroke-width: 2.4;
+  transition:
+    fill 120ms ease,
+    stroke 120ms ease,
+    stroke-width 120ms ease;
+}
+
+.cell:hover polygon,
+.cell:focus-visible polygon {
+  fill: rgba(234, 252, 254, 0.92);
+  stroke: #23bfd1;
+  stroke-width: 3;
+}
+
+.cell.selected polygon {
+  fill: rgba(248, 216, 230, 0.8);
+  stroke: #e06998;
+  stroke-width: 4;
+}
+
+.cell text {
+  dominant-baseline: middle;
+  font-size: 42px;
+  font-weight: 650;
+  pointer-events: none;
+  text-anchor: middle;
+}
+
+.cell text[data-charge="1"] {
+  fill: #1aa05b;
+}
+
+.cell text[data-charge="2"] {
+  fill: #1f8ef1;
+}
+
+.cell text[data-charge="3"] {
+  fill: #f224a7;
+}
+
+.cell text[data-charge="4"] {
+  fill: #f39b12;
+}
+
+.cell text[data-charge="5"] {
+  fill: #7c7d11;
+}
+
+.cell text[data-charge="6"] {
+  fill: #1b53dc;
+}
+
+.cell text[data-charge="7"] {
+  fill: #8b0505;
+}
+
+.cell text[data-charge="8"] {
+  fill: #088723;
+}
+
+.cell text[data-charge="9"] {
+  fill: #6d6d6d;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 10px;
+  background: rgba(247, 248, 248, 0.35);
+  color: rgba(218, 86, 126, 0.82);
+  text-align: center;
+  pointer-events: none;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay-title {
+  font-size: clamp(3rem, 10vw, 7rem);
+  font-weight: 850;
+  line-height: 0.95;
+}
+
+.overlay-reason {
+  max-width: 36rem;
+  padding: 0 16px;
+  color: #5f5f5f;
+  font-size: 1rem;
+  font-weight: 650;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(76px, 1fr)) minmax(150px, 1.6fr) auto auto;
+  gap: 10px;
+  align-items: end;
+  padding: 14px 0;
+}
+
+.controls label {
+  display: grid;
+  gap: 5px;
+  color: #303030;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.controls input {
+  width: 100%;
+  min-height: 38px;
+  border: 1px solid rgba(82, 166, 177, 0.45);
+  border-radius: 6px;
+  padding: 7px 9px;
+  background: #ffffff;
+  color: #111111;
+}
+
+.controls input:focus {
+  border-color: #23bfd1;
+  outline: 3px solid rgba(35, 191, 209, 0.2);
+}
+
+.controls button {
+  min-height: 38px;
+  border: 0;
+  border-radius: 6px;
+  padding: 8px 14px;
+  background: #e06998;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.controls button:hover {
+  background: #c94d7e;
+}
+
+.controls button.active {
+  background: #13889a;
+}
+
+.controls button.active:hover {
+  background: #0f7484;
+}
+
+.api-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: #4f6062;
+}
+
+.api-note code {
+  border: 1px solid rgba(82, 166, 177, 0.32);
+  border-radius: 6px;
+  padding: 6px 8px;
+  background: rgba(255, 255, 255, 0.7);
+  font-size: 0.82rem;
+}
+
+@media (max-width: 760px) {
+  .shell {
+    padding: 12px;
+  }
+
+  .topbar {
+    gap: 6px;
+  }
+
+  .metric {
+    gap: 8px;
+    min-height: 40px;
+    font-size: 1.1rem;
+  }
+
+  .game-panel {
+    min-height: 380px;
+  }
+
+  .board {
+    height: 62vh;
+    min-height: 360px;
+  }
+
+  .controls {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .seed-label,
+  .controls button {
+    grid-column: span 3;
+  }
+}
