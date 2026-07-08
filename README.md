@@ -67,3 +67,12 @@ python3 examples/baseline_strategy.py --seed baseline
 ```
 
 The baseline scores every legal one-step move. It strongly prefers immediate annihilation with a complementary neighboring charge, otherwise moves charges toward the nearest visible complement, avoids merging non-complementary visible charges, and nudges boundary charges inward. Because the API hides historical relation groups, this is a heuristic survival baseline rather than an optimal decoder.
+
+To watch Python-driven moves in the browser, open the app with API watch mode enabled:
+
+```sh
+open http://127.0.0.1:5173/?watchApi=1
+python3 examples/baseline_strategy.py --seed watched-python --max-turns 100 --delay 0.2
+```
+
+API watch mode polls `GET /api/state` and renders the server-side game state, so moves submitted by the Python player are visible in the browser. The `--delay` flag slows playback enough to follow each move.
