@@ -4,6 +4,12 @@ A game related to the decoding task of topological quantum codes. It is a reimpl
 
 This remake also focuses on making the game easy to play from scripts. Alongside the browser interface, it exposes a local JSON API and example Python players so decoding strategies can inspect the board state, submit moves, and be tested repeatably.
 
+## Demo
+
+![Python player driving the game through the local API](script_play_ex.gif)
+
+[Watch the MP4 version](script_play_ex.mp4).
+
 ## Rules
 
 The board is a rectangular grid of plaquettes. Each plaquette stores a charge in `Z_n`; charge `0` means the plaquette has no active anyon.
