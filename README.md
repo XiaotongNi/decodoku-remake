@@ -1,6 +1,6 @@
 # decodoku-remake
 
-A game related to the decoding task of topological quantum codes. It is a reimplementation based on the same game from Dr James Wootton, where players clean up anyons on a lattice before error chains connect opposite boundaries.
+A game related to the decoding task of topological quantum codes. It is a reimplementation based on [the same game from Dr James Wootton](https://decodoku.itch.io/decodoku), where players clean up anyons on a lattice before error chains connect opposite boundaries.
 
 This remake also focuses on making the game easy to play from scripts. Alongside the browser interface, it exposes a local JSON API and example Python players so decoding strategies can inspect the board state, submit moves, and be tested repeatably.
 
@@ -13,6 +13,8 @@ This remake also focuses on making the game easy to play from scripts. Alongside
 ## Rules
 
 The board is a rectangular grid of plaquettes. Each plaquette stores a charge in `Z_n`; charge `0` means the plaquette has no active anyon.
+
+These rules are a game-level approximation of real quantum error correction on surface codes, not a faithful simulator of the physical setup or the full decoding problem. In particular, values such as `Z_10` are useful here for gameplay and experiments, but real surface-code implementations generally do not use `Z_10` anyons.
 
 Errors create neighboring anyons. An error chooses an edge between two neighboring plaquettes, adds `+k` to one endpoint, and adds `-k mod n` to the other endpoint. If both endpoints are nonzero after the update, they are marked as related and shown as actively connected.
 
