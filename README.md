@@ -29,6 +29,8 @@ The game ends when active related anyons touch opposite boundaries:
 
 After every legal move, the turn and score each increase by `1`. Game over is checked immediately after the move; if the move already ended the game, the scheduled error burst is skipped. Otherwise, every `t` turns, `m` random errors are spawned and game over is checked again.
 
+If a move clears every active charge before the next scheduled error burst, the game automatically waits: the turn advances to the next multiple of `t` and the next errors are spawned. Waiting does not increase the score because no player move was made.
+
 ## Run
 
 ```sh
@@ -75,6 +77,17 @@ python3 examples/baseline_strategy.py --seed baseline
 ```
 
 The baseline scores every legal one-step move. It strongly prefers immediate annihilation with a complementary neighboring charge, otherwise moves charges toward the nearest visible complement, avoids merging non-complementary visible charges, and nudges boundary charges inward.
+
+To compare every `*_strategy.py` file in `examples/` over the same 30 seeds:
+
+```sh
+npm run dev
+python3 examples/benchmark_strategies.py
+```
+
+The benchmark prints score mean, median, standard deviation, minimum, maximum,
+game-over count, outcome reasons, and total runtime. Pass strategy names to test
+only a subset, for example `python3 examples/benchmark_strategies.py baseline_strategy`.
 
 To watch Python-driven moves in the browser, open the app with API watch mode enabled:
 

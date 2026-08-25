@@ -35,7 +35,7 @@ describe("GameEngine", () => {
   });
 
   it("cancels charges to zero", () => {
-    const game = new GameEngine({ rows: 3, cols: 3, initialBurst: false });
+    const game = new GameEngine({ rows: 3, cols: 3, m: 0, initialBurst: false });
     game.applyError({ a: [1, 0], b: [1, 1], value: 3 });
 
     const result = game.move({ from: [1, 0], to: [1, 1] });
@@ -44,6 +44,25 @@ describe("GameEngine", () => {
     expect(result.state.charges[1][0]).toBe(0);
     expect(result.state.charges[1][1]).toBe(0);
     expect(game.getDebugState().edgeCount).toBe(0);
+  });
+
+  it("waits until the next error burst when the board is clear", () => {
+    const game = new GameEngine({
+      rows: 4,
+      cols: 4,
+      t: 5,
+      m: 1,
+      seed: "clear-board-wait",
+      initialBurst: false
+    });
+    game.applyError({ a: [1, 1], b: [1, 2], value: 3 });
+
+    const result = game.move({ from: [1, 1], to: [1, 2] });
+
+    expect(result.ok).toBe(true);
+    expect(result.state.turn).toBe(5);
+    expect(result.state.score).toBe(1);
+    expect(result.state.charges.flat().some((charge) => charge !== 0)).toBe(true);
   });
 
   it("does not advance turn on illegal moves", () => {
@@ -56,7 +75,7 @@ describe("GameEngine", () => {
   });
 
   it("recomputes active clusters after cancellation", () => {
-    const game = new GameEngine({ rows: 3, cols: 3, initialBurst: false });
+    const game = new GameEngine({ rows: 3, cols: 3, m: 0, initialBurst: false });
     game.applyError({ a: [0, 0], b: [0, 1], value: 4 });
     expect(game.getDebugState().clusterIds[0][0]).toBe(game.getDebugState().clusterIds[0][1]);
 

@@ -147,6 +147,7 @@ export class GameEngine {
       this.spawnErrors(this.config.m);
       this.updateGameOver();
     }
+    this.advanceToNextBurstIfClear();
 
     return { ok: true, state: this.getState() };
   }
@@ -189,6 +190,19 @@ export class GameEngine {
     for (let i = 0; i < count; i += 1) {
       this.applyError(this.randomInteriorEdge());
     }
+  }
+
+  private advanceToNextBurstIfClear(): void {
+    while (!this.gameOver && this.config.m > 0 && this.isBoardClear()) {
+      const turnsUntilBurst = this.config.t - (this.turn % this.config.t);
+      this.turn += turnsUntilBurst;
+      this.spawnErrors(this.config.m);
+      this.updateGameOver();
+    }
+  }
+
+  private isBoardClear(): boolean {
+    return this.charges.every((row) => row.every((charge) => charge === 0));
   }
 
   private validateMove(action: MoveAction): string | null {
